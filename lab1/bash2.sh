@@ -1,0 +1,1 @@
+time ./bash.sh potop-utf8.txt > result.txt
