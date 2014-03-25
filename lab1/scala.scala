@@ -5,12 +5,10 @@ import scala.util.matching.Regex
 class WordTokenizer extends RegexParsers {
   override protected val whiteSpace: Regex = "".r // don't skip whitespaces
 
-  private val wordParser = """\w+""".r
+  private val wordParser = """[^\p{Punct}\p{Space}]+""".r
   private val noiseParser = """\p{Punct}""".r | """\p{Space}""".r
 
-  private val words: Parser[List[String]] = (noiseParser*) ~> ((wordParser <~ (noiseParser*))*) ^^ {
-    case words => words
-  }
+  private val words: Parser[List[String]] = (noiseParser*) ~>(((wordParser <~ (noiseParser+)) | wordParser)*)  <~ (noiseParser*)
 
   def parseWords(input: String): List[String] = parseAll(words, input) match {
     case Success(result, _) => result
@@ -18,10 +16,11 @@ class WordTokenizer extends RegexParsers {
   }
 }
 
-object HelloWorld {
+object WordCounter {
   val tokenizer = new WordTokenizer
 
   def extractWords(line: String) : List[String] = {
+    // println(line)
     tokenizer.parseWords(line)
   }
 
@@ -33,7 +32,9 @@ object HelloWorld {
 
     // to lower 
 
-    val counted = words.toSeq.groupBy(identity)
+    val counted = words.toSeq
+                       .map(_.toLowerCase)
+                       .groupBy(identity)
                        .map(entry => (entry._1, entry._2.size))
                        .toList.sortBy(- _._2)
 
