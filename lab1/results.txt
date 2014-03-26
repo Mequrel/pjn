@@ -1,7 +1,8 @@
-           TIME      QUALITY   CODE LENGTH
+           TIME      QUALITY   CODE LENGTH    LOC
 
-PYTHON   0m0.761s      9/10       106 
-BASH     0m1.083s      9/10       577
-SCALA    0m5.587s      8/10      1304
-JAVA     0m1.448s      4/10      1535
-JS       0m1.059s      3/10       627
+PYTHON   0m0.761s      9/10       577         26
+BASH     0m1.083s      9/10       106          1
+SCALA-PC 0m5.587s      8/10      1304         43
+SCALA    0m5.808s     10/10       579         18
+JAVA     0m1.448s      4/10      1535         56
+JS       0m1.059s      3/10       627         29
