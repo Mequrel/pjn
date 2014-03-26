@@ -16,7 +16,7 @@ class WordTokenizer extends RegexParsers {
   }
 }
 
-object WordCounter {
+object WordCount {
   val tokenizer = new WordTokenizer
 
   def extractWords(line: String) : List[String] = {

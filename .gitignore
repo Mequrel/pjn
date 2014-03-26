@@ -1,1 +1,4 @@
 *.class
+/lab1/result-java.txt
+/lab1/result-js.txt
+/lab1/result-scala.txt

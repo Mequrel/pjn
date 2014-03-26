@@ -1,0 +1,7 @@
+           TIME      QUALITY   CODE LENGTH
+
+PYTHON   0m0.761s      9/10       106 
+BASH     0m1.083s      9/10       577
+SCALA    0m5.587s      8/10      1304
+JAVA     0m1.448s      4/10      1535
+JS       0m1.059s      3/10       627
