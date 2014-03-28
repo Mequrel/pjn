@@ -1,0 +1,1 @@
+cat mistakes.txt | ./spellchecker.py | ./spellrank/spellrank.py -f correct.txt
