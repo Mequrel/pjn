@@ -1,3 +1,6 @@
 #!/usr/bin/env python
 
-print "xxx"
+
+def propose(word):
+    return word
+
