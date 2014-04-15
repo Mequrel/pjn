@@ -45,5 +45,8 @@ class LevenshteinDistanceTestCase(unittest.TestCase):
     def test_should_add_one_for_one_deletion(self):
         self.assertEqual(1, levenshtein("mamusia", "mamusi"))
 
-    def test_should_word_for_more_complicated_example(self):
+    def test_should_work_for_more_complicated_example(self):
         self.assertEqual(3, levenshtein("kitten", "sitting"))
+
+    def test_should_count_half_for_transposition(self):
+        self.assertEqual(0.5, levenshtein("mamusia", "maumsia"))
