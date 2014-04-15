@@ -5,7 +5,8 @@ from itertools import chain
 import sys
 
 #DICTIONARY_PATH = 'dictionary.txt'
-DICTIONARY_PATH = 'dictionary-small.txt'
+#DICTIONARY_PATH = 'dictionary-500.txt'
+DICTIONARY_PATH = 'dictionary-3000.txt'
 
 
 def levenshtein(word_a, word_b):
@@ -41,19 +42,22 @@ def main():
 
     for word in fileinput.input():
         word = word.strip()
-        print propose(word, dictionary)
+        proposals = propose(word, dictionary)
+        print ", ".join(proposals)
 
 
 def propose(mistake, dictionary):
-    best_word = ""
+    best_words = None
     best_distance = sys.maxint
     for word in dictionary:
         distance = levenshtein(mistake, word)
         if best_distance > distance:
             best_distance = distance
-            best_word = word
+            best_words = [word]
+        elif best_distance == distance:
+            best_words.append(word)
 
-    return best_word
+    return best_words
 
 if __name__ == "__main__":
     main()
