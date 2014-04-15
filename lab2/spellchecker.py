@@ -5,9 +5,11 @@ import fileinput
 from itertools import chain
 import sys
 
-#DICTIONARY_PATH = 'dictionary.txt'
-#DICTIONARY_PATH = 'dictionary-500.txt'
-DICTIONARY_PATH = 'dictionary-3000.txt'
+DICTIONARY_PATH = 'dictionary.txt'
+
+
+def known_words(words, dictionary):
+    return words.intersection(dictionary)
 
 
 def generate_levenshtein(word, alphabet):
@@ -66,11 +68,11 @@ def load_dictionary():
 
 
 def main():
-    dictionary = list(load_dictionary())
+    dictionary = set(load_dictionary())
 
     for word in fileinput.input():
         word = word.strip()
-        proposals = propose(word, dictionary)
+        proposals = propose2(word, dictionary)
         print ", ".join(proposals)
 
 
@@ -86,6 +88,13 @@ def propose(mistake, dictionary):
             best_words.append(word)
 
     return list(set(best_words))
+
+
+def propose2(mistake, dictionary):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    words = set(map(lambda x: x[0], generate_levenshtein(mistake, alphabet)))
+    return known_words(words, dictionary)
 
 
 if __name__ == "__main__":

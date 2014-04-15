@@ -5,6 +5,7 @@ import unittest
 from spellchecker import propose
 from spellchecker import levenshtein
 from spellchecker import generate_levenshtein
+from spellchecker import known_words
 
 
 class ProposalsTestCase(unittest.TestCase):
@@ -101,3 +102,14 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
         self.assertIn(("koetk", 1), result)
         self.assertIn(("kotke", 1), result)
 
+
+class KnownWords(unittest.TestCase):
+    def test_should_filter_known_words(self):
+        dictionary = set(["ala", "ola", "basia"])
+
+        words = set(["xxyy", "ala", "abc", "basia"])
+        expected_known_words = ["ala", "basia"]
+
+        result = known_words(words, dictionary)
+
+        self.assertItemsEqual(expected_known_words, result)
