@@ -114,9 +114,9 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
 
 class KnownWords(unittest.TestCase):
     def test_should_filter_known_words(self):
-        dictionary = set(["ala", "ola", "basia"])
+        dictionary = {"ala", "ola", "basia"}
 
-        words = set(["xxyy", "ala", "abc", "basia"])
+        words = {"xxyy", "ala", "abc", "basia"}
         expected_known_words = ["ala", "basia"]
 
         result = known_words(words, dictionary)
