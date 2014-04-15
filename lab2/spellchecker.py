@@ -17,9 +17,13 @@ def levenshtein(word_a, word_b):
     if len(word_b) == 0:
         return len(word_a)
 
+    if abs(len(word_a) - len(word_b)) > 3:
+        return len(word_b) + 1
+
     p_previous_row = xrange(len(word_b) + 1)
     previous_row = xrange(len(word_b) + 1)
     for i, c1 in enumerate(word_a):
+        mn = len(word_b) + 1
         current_row = [i + 1]
         for j, c2 in enumerate(word_b):
             insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
@@ -31,7 +35,12 @@ def levenshtein(word_a, word_b):
                 transpositions = p_previous_row[j-1] + 0.5
                 best = min(best, transpositions)
 
+            mn = min(mn, best)
             current_row.append(best)
+
+        if mn >= 1.0:
+            return len(word_b) + 1
+
         p_previous_row = previous_row
         previous_row = current_row
 
