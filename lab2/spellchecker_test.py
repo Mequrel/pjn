@@ -5,6 +5,7 @@ import unittest
 from spellchecker import propose
 from spellchecker import levenshtein
 
+
 class ProposalsTestCase(unittest.TestCase):
     def test_should_return_a_word_from_dict_that_is_the_closest_one(self):
         dictionary = ("mangal", "angażuje", "aasdfasdf")
@@ -21,6 +22,15 @@ class ProposalsTestCase(unittest.TestCase):
         result = propose("barbara", dictionary)
 
         self.assertItemsEqual(expected, result)
+
+    def test_should_return_once_doubled_word_in_dictionary(self):
+        dictionary = ("angażuje", "angażuje", "aasdfasdf")
+
+        expected = ["angażuje"]
+        result = propose("angarzuje", dictionary)
+
+        self.assertEqual(expected, result)
+
 
 class LevenshteinDistanceTestCase(unittest.TestCase):
     def test_should_return_zero_for_the_same_words(self):

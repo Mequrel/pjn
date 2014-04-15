@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import fileinput
 from itertools import chain
@@ -57,7 +58,7 @@ def propose(mistake, dictionary):
         elif best_distance == distance:
             best_words.append(word)
 
-    return best_words
+    return list(set(best_words))
 
 if __name__ == "__main__":
     main()
