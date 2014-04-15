@@ -15,7 +15,7 @@ class ProposalsTestCase(unittest.TestCase):
         expected = ["angażuje"]
         result = propose("angarzuje", dictionary)
 
-        self.assertEqual(expected, result)
+        self.assertItemsEqual(expected, result)
 
     def test_should_return_all_words_with_the_same_distance(self):
         dictionary = ("barbarka", "barbar", "karbara", "xxx")

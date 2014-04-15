@@ -29,8 +29,8 @@ def levenshtein(word_a, word_b):
     if len(word_b) == 0:
         return len(word_a)
 
-    if abs(len(word_a) - len(word_b)) > 3:
-        return len(word_b) + 1
+    # if abs(len(word_a) - len(word_b)) > 3:
+    #     return len(word_b) + 1
 
     p_previous_row = xrange(len(word_b) + 1)
     previous_row = xrange(len(word_b) + 1)
@@ -51,8 +51,8 @@ def levenshtein(word_a, word_b):
             mn = min(mn, best)
             current_row.append(best)
 
-        if mn >= 1.0:
-            return len(word_b) + 1
+        # if mn >= 1.0:
+        #     return len(word_b) + 1
 
         p_previous_row = previous_row
         previous_row = current_row
