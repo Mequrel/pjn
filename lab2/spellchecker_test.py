@@ -4,6 +4,7 @@
 import unittest
 from spellchecker import propose
 from spellchecker import levenshtein
+from spellchecker import generate_levenshtein
 
 
 class ProposalsTestCase(unittest.TestCase):
@@ -50,3 +51,53 @@ class LevenshteinDistanceTestCase(unittest.TestCase):
 
     def test_should_count_half_for_transposition(self):
         self.assertEqual(0.5, levenshtein("mamusia", "maumsia"))
+
+
+class LevenshteinGeneratorTestCase(unittest.TestCase):
+    def test_should_generate_all_inserts(self):
+        alphabet = "ab"
+
+        result = generate_levenshtein("kot", alphabet)
+
+        self.assertIn(("akot", 1), result)
+        self.assertIn(("kaot", 1), result)
+        self.assertIn(("koat", 1), result)
+        self.assertIn(("kota", 1), result)
+        self.assertIn(("bkot", 1), result)
+        self.assertIn(("kbot", 1), result)
+        self.assertIn(("kobt", 1), result)
+        self.assertIn(("kotb", 1), result)
+
+    def test_should_generate_all_deletes(self):
+        alphabet = "ab"
+
+        result = generate_levenshtein("kotek", alphabet)
+
+        self.assertIn(("otek", 1), result)
+        self.assertIn(("ktek", 1), result)
+        self.assertIn(("koek", 1), result)
+        self.assertIn(("kotk", 1), result)
+        self.assertIn(("kote", 1), result)
+
+    def test_should_generate_all_replaces(self):
+        alphabet = "ab"
+
+        result = generate_levenshtein("kot", alphabet)
+
+        self.assertIn(("aot", 1), result)
+        self.assertIn(("kat", 1), result)
+        self.assertIn(("koa", 1), result)
+        self.assertIn(("bot", 1), result)
+        self.assertIn(("kbt", 1), result)
+        self.assertIn(("kob", 1), result)
+
+    def test_should_generate_all_transposes(self):
+        alphabet = "ab"
+
+        result = generate_levenshtein("kotek", alphabet)
+
+        self.assertIn(("oktek", 1), result)
+        self.assertIn(("ktoek", 1), result)
+        self.assertIn(("koetk", 1), result)
+        self.assertIn(("kotke", 1), result)
+
