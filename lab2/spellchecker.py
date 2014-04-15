@@ -5,6 +5,7 @@ import fileinput
 from itertools import chain
 import sys
 
+#DICTIONARY_PATH = 'dictionary-3000.txt'
 DICTIONARY_PATH = 'dictionary.txt'
 
 
@@ -72,8 +73,9 @@ def main():
 
     for word in fileinput.input():
         word = word.strip()
+        word = word.decode("utf-8")
         proposals = propose2(word, dictionary)
-        print ", ".join(proposals)
+        print u', '.join(proposals).encode("utf-8")
 
 
 def propose(mistake, dictionary):
@@ -91,10 +93,13 @@ def propose(mistake, dictionary):
 
 
 def propose2(mistake, dictionary):
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
 
     words = set(map(lambda x: x[0], generate_levenshtein(mistake, alphabet)))
-    return known_words(words, dictionary)
+
+    known1 = known_words(words, dictionary)
+
+    return known1 or [mistake]
 
 
 if __name__ == "__main__":

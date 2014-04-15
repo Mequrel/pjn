@@ -80,6 +80,15 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
         self.assertIn(("kotk", 1), result)
         self.assertIn(("kote", 1), result)
 
+    def test_should_generate_all_deletes2(self):
+        alphabet = "ab"
+
+        result = generate_levenshtein(u"uła", alphabet)
+
+        self.assertIn((u"ła", 1), result)
+        self.assertIn((u"ua", 1), result)
+        self.assertIn((u"uł", 1), result)
+
     def test_should_generate_all_replaces(self):
         alphabet = "ab"
 
