@@ -111,6 +111,13 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
         self.assertIn(("koetk", 1), result)
         self.assertIn(("kotke", 1), result)
 
+    def test_a_bug(self):
+        alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
+
+        result = generate_levenshtein(u"abonamet", alphabet)
+
+        self.assertIn((u"abonament", 1), result)
+
 
 class KnownWords(unittest.TestCase):
     def test_should_filter_known_words(self):

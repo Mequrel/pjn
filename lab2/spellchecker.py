@@ -19,6 +19,7 @@ def generate_levenshtein(word, alphabet):
     deletes = [(a + b[1:], 1) for a, b in splits if b]
     replaces = [(a + c + b[1:], 1) for a, b in splits for c in alphabet if b]
     transposes = [(a + b[1] + b[0] + b[2:], 1) for a, b in splits if len(b) > 1]
+
     return set(inserts + deletes + replaces + transposes)
 
 
@@ -95,11 +96,16 @@ def propose(mistake, dictionary):
 def propose2(mistake, dictionary):
     alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
 
-    words = set(map(lambda x: x[0], generate_levenshtein(mistake, alphabet)))
+    words1 = set(map(lambda x: x[0], generate_levenshtein(mistake, alphabet)))
+    known1 = known_words(words1, dictionary)
 
-    known1 = known_words(words, dictionary)
+    if known1:
+        return known1
 
-    return known1 or [mistake]
+    words2 = set(word2 for word1 in words1 for (word2,dist) in generate_levenshtein(word1, alphabet))
+    known2 = known_words(words2, dictionary)
+
+    return known2 or [mistake]
 
 
 if __name__ == "__main__":
