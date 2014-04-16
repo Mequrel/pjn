@@ -10,11 +10,16 @@ import re
 
 DICTIONARY_PATH = 'dictionary.txt'
 
+
+
+
 def train(features):
     model = collections.defaultdict(lambda: 1)
     for f in features:
         model[f] += 1
     return model
+
+
 
 def words(text): return re.findall('[\w]+', text.lower(), flags=re.UNICODE)
 NWORDS = train(words(file('korpus').read()))
@@ -51,6 +56,47 @@ def cost(before, after):
     return replace_cost.get((before, after), max(len(before), len(after)))
 
 
+def levenshtein(word_a, word_b):
+    if len(word_a) < len(word_b):
+        return levenshtein(word_b, word_a)
+
+    if len(word_b) == 0:
+        return len(word_a)
+
+    p_previous_row = xrange(len(word_b) + 1)
+    previous_row = xrange(len(word_b) + 1)
+    for i, c1 in enumerate(word_a):
+        current_row = [i + 1]
+        for j, c2 in enumerate(word_b):
+            insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
+            deletions = current_row[j] + 1       # than s2
+            substitutions = previous_row[j] + (c1 != c2) * cost(c1, c2)
+            best = min(insertions, deletions, substitutions)
+
+            if i > 0:
+                subs12 = p_previous_row[j] + cost(word_a[i-1] + word_a[i], word_b[j])
+                best = min(best, subs12)
+
+            if j > 0:
+                subs21 = previous_row[j-1] + cost(word_a[i], word_b[j-1] + word_b[j])
+                best = min(best, subs21)
+
+            if i > 0 and j > 0:
+                subs22 = p_previous_row[j-1] + cost(word_a[i-1]+word_a[i], word_b[j-1]+word_b[j])
+                best = min(best, subs22)
+
+            if i > 0 and j > 0 and c1 == word_b[j-1] and c2 == word_a[i-1]:
+                transpositions = p_previous_row[j-1] + 0.5
+                best = min(best, transpositions)
+
+            current_row.append(best)
+
+        p_previous_row = previous_row
+        previous_row = current_row
+
+    return previous_row[-1]
+
+
 r22 = [u'au', u'ał']
 r21 = [u'ch', u'em', u'en', u'om', u'on', u'rz']
 
@@ -73,6 +119,20 @@ def load_dictionary():
         split = map(lambda x: x.split(", "), lines)
         return chain.from_iterable(split)
 
+
+
+with open('bledy.txt') as f:
+    lines = f.read().splitlines()
+    split = map(lambda x: x.decode('utf-8').split(" - "), lines)
+
+errors = []
+for pair in split:
+    if len(pair) > 1:
+        errors.append(levenshtein(pair[0], pair[1]))
+
+NERRS = train(errors)
+
+print NERRS
 
 def main():
     dictionary = set(map(lambda word: word.decode('utf-8'), load_dictionary()))
