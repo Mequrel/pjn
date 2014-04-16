@@ -106,10 +106,17 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
 
         result = generate_levenshtein("kotek", alphabet)
 
-        self.assertIn(("oktek", 1), result)
-        self.assertIn(("ktoek", 1), result)
-        self.assertIn(("koetk", 1), result)
-        self.assertIn(("kotke", 1), result)
+        self.assertIn(("oktek", 0.5), result)
+        self.assertIn(("ktoek", 0.5), result)
+        self.assertIn(("koetk", 0.5), result)
+        self.assertIn(("kotke", 0.5), result)
+    #
+    # def test_should_generate_the_same_word(self):
+    #     alphabet = "ab"
+    #
+    #     result = generate_levenshtein("kotek", alphabet)
+    #
+    #     self.assertIn(("kotek", 0), result)
 
     def test_a_bug(self):
         alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
@@ -117,6 +124,13 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
         result = generate_levenshtein(u"abonamet", alphabet)
 
         self.assertIn((u"abonament", 1), result)
+
+    def test_a_bug2(self):
+        alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
+
+        result = generate_levenshtein(u"automatow", alphabet)
+
+        self.assertIn((u"automatów", 0.25), result)
 
 
 class KnownWords(unittest.TestCase):

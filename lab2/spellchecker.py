@@ -4,6 +4,7 @@
 import fileinput
 from itertools import chain
 import sys
+from collections import defaultdict
 
 #DICTIONARY_PATH = 'dictionary-3000.txt'
 DICTIONARY_PATH = 'dictionary.txt'
@@ -13,11 +14,20 @@ def known_words(words, dictionary):
     return words.intersection(dictionary)
 
 
+replace_cost = {}
+replace_cost[(u'o', u'ó')] = 0.25
+replace_cost[(u'ó', u'o')] = 0.25
+
+
+def cost(before, after):
+    return replace_cost.get((before, after), 1)
+
+
 def generate_levenshtein(word, alphabet):
     splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
     inserts = [(a + c + b, 1) for a, b in splits for c in alphabet]
     deletes = [(a + b[1:], 1) for a, b in splits if b]
-    replaces = [(a + c + b[1:], 1) for a, b in splits for c in alphabet if b]
+    replaces = [(a + c + b[1:], cost(b[0], c)) for a, b in splits for c in alphabet if b]
     transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1]
 
     return set(inserts + deletes + replaces + transposes)
@@ -70,7 +80,7 @@ def load_dictionary():
 
 
 def main():
-    dictionary = set(load_dictionary())
+    dictionary = set(map(lambda word: word.decode('utf-8'), load_dictionary()))
 
     for word in fileinput.input():
         word = word.strip()
@@ -109,16 +119,19 @@ def propose2(mistake, dictionary):
     words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
     known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
 
-    if known1:
-        ordered = sorted(known1, key=lambda x: x[1])
-        return best(ordered)
+    # if known1:
+    #     ordered = sorted(known1, key=lambda x: x[1])
+    #     return best(ordered)
 
     known2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
                  generate_levenshtein(word1, alphabet) if word2 in dictionary)
 
+
+
     if known2:
-        ordered = sorted(known2, key=lambda x: x[1])
+        ordered = sorted(known2.union(known1), key=lambda x: x[1])
         return best(ordered)
+
 
     return [mistake]
 
