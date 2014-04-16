@@ -1,12 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import collections
 
 import fileinput
 from itertools import chain
 
 #DICTIONARY_PATH = 'dictionary-3000.txt'
+import re
+
 DICTIONARY_PATH = 'dictionary.txt'
 
+def train(features):
+    model = collections.defaultdict(lambda: 1)
+    for f in features:
+        model[f] += 1
+    return model
+
+def words(text): return re.findall('[\w]+', text.lower(), flags=re.UNICODE)
+NWORDS = train(words(file('korpus').read()))
 
 def known_words(words, dictionary):
     return words.intersection(dictionary)
