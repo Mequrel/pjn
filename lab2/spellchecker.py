@@ -16,21 +16,44 @@ def known_words(words, dictionary):
 
 replace_cost = {}
 replace_cost[(u'o', u'ó')] = 0.25
-replace_cost[(u'ó', u'o')] = 0.25
+replace_cost[(u'a', u'ą')] = 0.25
+replace_cost[(u'e', u'ę')] = 0.25
+replace_cost[(u'n', u'ń')] = 0.25
+replace_cost[(u's', u'ś')] = 0.25
+replace_cost[(u'c', u'ć')] = 0.25
+replace_cost[(u'l', u'ł')] = 0.25
+replace_cost[(u'z', u'ź')] = 0.25
+replace_cost[(u'z', u'ż')] = 0.25
+
+replace_cost[(u'u', u'ó')] = 0.25
+replace_cost[(u'rz', u'ż')] = 0.25
+replace_cost[(u'ch', u'h')] = 0.25
+replace_cost[(u'ę', u'em')] = 0.25
+replace_cost[(u'ę', u'en')] = 0.25
+replace_cost[(u'ą', u'om')] = 0.25
+replace_cost[(u'ą', u'on')] = 0.25
+replace_cost[(u'au', u'ał')] = 0.25
+
+
+for (a,b) in replace_cost.keys():
+    replace_cost[(b,a)] = replace_cost[(a,b)]
 
 
 def cost(before, after):
-    return replace_cost.get((before, after), 1)
+    return replace_cost.get((before, after), max(len(before), len(after)))
 
+
+r22 = [u'au', u'ał']
 
 def generate_levenshtein(word, alphabet):
     splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
     inserts = [(a + c + b, 1) for a, b in splits for c in alphabet]
     deletes = [(a + b[1:], 1) for a, b in splits if b]
     replaces = [(a + c + b[1:], cost(b[0], c)) for a, b in splits for c in alphabet if b]
+    replaces22 = [(a + c + b[2:], cost(b[:2], c)) for a, b in splits for c in r22 if len(b) > 1]
     transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1]
 
-    return set(inserts + deletes + replaces + transposes)
+    return set(replaces22 + inserts + deletes + replaces + transposes)
 
 
 def levenshtein(word_a, word_b):

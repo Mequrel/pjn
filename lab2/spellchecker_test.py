@@ -118,6 +118,13 @@ class LevenshteinGeneratorTestCase(unittest.TestCase):
     #
     #     self.assertIn(("kotek", 0), result)
 
+    def test_should_replace22(self):
+        alphabet = ""
+        print "Hello"
+        result = generate_levenshtein(u"ałkcja", alphabet)
+
+        self.assertIn((u"aukcja", 0.25), result)
+
     def test_a_bug(self):
         alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
 
