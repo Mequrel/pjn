@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from _heapq import heappop, heappush
 
 import fileinput
 from itertools import chain
@@ -52,7 +53,7 @@ def generate_levenshtein(word, alphabet):
     replaces = [(a + c + b[1:], cost(b[0], c)) for a, b in splits for c in alphabet if b]
     replaces22 = [(a + c + b[2:], cost(b[:2], c)) for a, b in splits for c in r22 if len(b) > 1]
     replaces21 = [(a + c + b[1:], cost(b[:1], c)) for a, b in splits for c in r21 if b]
-    transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1]
+    transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1 ]
 
     return set(replaces22 + replaces21 + inserts + deletes + replaces + transposes)
 
@@ -109,7 +110,7 @@ def main():
     for word in fileinput.input():
         word = word.strip()
         word = word.decode("utf-8")
-        proposals = propose2(word, dictionary)
+        proposals = propose3(word, dictionary)
         print u', '.join(proposals).encode("utf-8")
 
 
@@ -140,22 +141,125 @@ def best(tuples):
 def propose2(mistake, dictionary):
     alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
 
-    words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
-    known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
+    # words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
+    # known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
+
+    known_all = []
+    all_visited = {mistake}
+    known_best = []
+    words = [(0, mistake)]
+    dist = 0
+    i = 0
+    while dist <= 2.0 and len(known_best) < 5 and i < 300:
+        dist, word = heappop(words)
+
+        if word in dictionary:
+            known_best.append((word, dist))
+
+        new_words = generate_levenshtein(word, alphabet)
+
+        for new_word, new_dist in new_words:
+            if new_word not in all_visited:
+                heappush(words, (new_dist + dist, new_word))
+                if new_word in dictionary:
+                    known_all.append((new_word, new_dist + dist))
+            all_visited.add(new_word)
+
+        i += 1
+
+    if known_best:
+        return best(known_best)
+    elif known_all:
+        ordered = sorted(known_all, key=lambda x: x[1])
+        return best(ordered)
+
+
+
 
     # if known1:
     #     ordered = sorted(known1, key=lambda x: x[1])
     #     return best(ordered)
 
+    # known2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
+    #              generate_levenshtein(word1, alphabet) if word2 in dictionary)
+    #
+    #
+    #
+    # if known2:
+    #     ordered = sorted(known2.union(known1), key=lambda x: x[1])
+    #     return best(ordered)
+
+
+    return [mistake]
+
+def propose3(mistake, dictionary):
+    alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
+
+    words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
+    known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
+
+    if known1:
+         ordered = sorted(known1, key=lambda x: x[1])
+         return best(ordered)
+
     known2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
                  generate_levenshtein(word1, alphabet) if word2 in dictionary)
-
-
 
     if known2:
         ordered = sorted(known2.union(known1), key=lambda x: x[1])
         return best(ordered)
 
+    return [mistake]
+
+def propose4(mistake, dictionary):
+    alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
+
+    words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
+    known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
+
+    words2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
+                 generate_levenshtein(word1, alphabet))
+
+    known2 = set((word2, dist2) for (word2, dist2) in words2 if word2 in dictionary)
+
+    known_all = known2.union(known1)
+    all_visited = set(words2.union(words1))
+    known_best = known2 or known1
+    words = []
+
+    for (word, dist) in known2:
+        heappush(words, (dist, word))
+
+    for (word, dist) in known1:
+        heappush(words, (dist, word))
+
+    for (word,dist) in words:
+        heappush(words, (dist, word))
+
+    dist = 0
+    i = 0
+    while i < 300:
+        dist, word = heappop(words)
+
+        if word in dictionary:
+            known_best.append((word, dist))
+
+        new_words = generate_levenshtein(word, alphabet)
+
+        for new_word, new_dist in new_words:
+            if new_word not in all_visited:
+                heappush(words, (new_dist + dist, new_word))
+                if new_word in dictionary:
+                    known_all.append((new_word, new_dist + dist))
+            all_visited.add(new_word)
+
+        i += 1
+
+    if known_best:
+        return best(known_best)
+    elif known_all:
+        ordered = sorted(known_all, key=lambda x: x[1])
+        return best(ordered)
 
     return [mistake]
 
