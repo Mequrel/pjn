@@ -144,8 +144,11 @@ def main():
         print u', '.join(proposals).encode("utf-8")
 
 
+MX = sum(NERRS.values()) * sum(NWORDS.values())
+
+
 def P(x):
-    return NERRS[x[1]] * NWORDS[x[0]]
+    return - x[1] + 0.25 * 500000 * (NERRS[x[1]] * NWORDS[x[0]]) / float(MX)
 
 
 def best(tuples):
@@ -153,10 +156,12 @@ def best(tuples):
 
     yield tuples[0][0]
     was.add(tuples[0][0])
+    #print P(tuples[0])
 
     for i in xrange(1, min(len(tuples), 5)):
-        if (P(tuples[0]) / 2) < P(tuples[i]) and tuples[i][0] not in was:
+        if (P(tuples[0]) - P(tuples[i])) < 0.5 and tuples[i][0] not in was:
             was.add(tuples[0][0])
+            #print P(tuples[i])
             yield tuples[i][0]
         else:
             break
