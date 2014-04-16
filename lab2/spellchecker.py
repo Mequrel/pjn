@@ -96,7 +96,7 @@ def propose(mistake, dictionary):
 def best(tuples):
     yield tuples[0][0]
 
-    for i in xrange(1, len(tuples)):
+    for i in xrange(1, min(len(tuples), 5)):
         if tuples[0][1] == tuples[i][1]:
             yield tuples[i][0]
         else:
