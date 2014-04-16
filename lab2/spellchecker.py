@@ -18,7 +18,7 @@ def generate_levenshtein(word, alphabet):
     inserts = [(a + c + b, 1) for a, b in splits for c in alphabet]
     deletes = [(a + b[1:], 1) for a, b in splits if b]
     replaces = [(a + c + b[1:], 1) for a, b in splits for c in alphabet if b]
-    transposes = [(a + b[1] + b[0] + b[2:], 1) for a, b in splits if len(b) > 1]
+    transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1]
 
     return set(inserts + deletes + replaces + transposes)
 
@@ -93,18 +93,34 @@ def propose(mistake, dictionary):
     return list(set(best_words))
 
 
+def best(tuples):
+    yield tuples[0][0]
+
+    for i in xrange(1, len(tuples)):
+        if tuples[0][1] == tuples[i][1]:
+            yield tuples[i][0]
+        else:
+            break
+
+
 def propose2(mistake, dictionary):
     alphabet = u'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzżź'
 
-    words1 = set(map(lambda x: x[0], generate_levenshtein(mistake, alphabet)))
-    known1 = known_words(words1, dictionary)
+    words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
+    known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
 
     if known1:
-        return known1
+        ordered = sorted(known1, key=lambda x: x[1])
+        return best(ordered)
 
-    known2 = (word2 for word1 in words1 for (word2,dist) in generate_levenshtein(word1, alphabet) if word2 in dictionary)
+    known2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
+                 generate_levenshtein(word1, alphabet) if word2 in dictionary)
 
-    return known2 or [mistake]
+    if known2:
+        ordered = sorted(known2, key=lambda x: x[1])
+        return best(ordered)
+
+    return [mistake]
 
 
 if __name__ == "__main__":
