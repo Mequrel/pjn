@@ -102,8 +102,7 @@ def propose2(mistake, dictionary):
     if known1:
         return known1
 
-    words2 = set(word2 for word1 in words1 for (word2,dist) in generate_levenshtein(word1, alphabet))
-    known2 = known_words(words2, dictionary)
+    known2 = (word2 for word1 in words1 for (word2,dist) in generate_levenshtein(word1, alphabet) if word2 in dictionary)
 
     return known2 or [mistake]
 
