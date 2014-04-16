@@ -4,7 +4,6 @@
 import fileinput
 from itertools import chain
 import sys
-from collections import defaultdict
 
 #DICTIONARY_PATH = 'dictionary-3000.txt'
 DICTIONARY_PATH = 'dictionary.txt'
@@ -44,6 +43,7 @@ def cost(before, after):
 
 
 r22 = [u'au', u'ał']
+r21 = [u'ch', u'em', u'en', u'om', u'on', u'rz']
 
 def generate_levenshtein(word, alphabet):
     splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
@@ -51,9 +51,10 @@ def generate_levenshtein(word, alphabet):
     deletes = [(a + b[1:], 1) for a, b in splits if b]
     replaces = [(a + c + b[1:], cost(b[0], c)) for a, b in splits for c in alphabet if b]
     replaces22 = [(a + c + b[2:], cost(b[:2], c)) for a, b in splits for c in r22 if len(b) > 1]
+    replaces21 = [(a + c + b[1:], cost(b[:1], c)) for a, b in splits for c in r21 if b]
     transposes = [(a + b[1] + b[0] + b[2:], 0.5) for a, b in splits if len(b) > 1]
 
-    return set(replaces22 + inserts + deletes + replaces + transposes)
+    return set(replaces22 + replaces21 + inserts + deletes + replaces + transposes)
 
 
 def levenshtein(word_a, word_b):
