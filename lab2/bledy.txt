@@ -16,7 +16,7 @@ aódi - audi
 apsolutnie - absolutnie
 apsurd - absurd
 arafadki - arafatki
-Arde Co - patrz: ardeko
+Arde Co - ardeko
 ardeko - Art Deco
 aromaterapełtyczne - aromaterapeutyczne
 artykół - artykuł
@@ -56,7 +56,7 @@ bolcy - bolców
 bombelkowa koperta - bezpieczna koperta z folią bąbelkową
 bonos - bonus
 bódzik - budzik
-branzoleta  - patrz: brązoletka
+branzoleta  - brązoletka
 brązoletka - bransoleta
 brobinkami - drobinkami
 bronsoletę - bransoletę
@@ -70,10 +70,10 @@ bydlencej - bydlęcej
 cantry - country
 cfaniak - cwaniak
 cieszki - ciężki
-cieszki urzytkownik do tranzakcji - patrz: cieszki, tranzakcja, urzytkownik
+cieszki urzytkownik do tranzakcji - cieszki, tranzakcja, urzytkownik
 cież - ciesz 
 ciękie - cienkie
-chaftki - patrz: hawtki
+chaftki - hawtki
 chalasuje - hałasuje
 chalka - halka
 chalogenowa - halogenowa
@@ -90,7 +90,7 @@ chity - hity
 chiszpańskim - hiszpańskim
 chlajnoga - hulajnoga
 chlopakowe - chłopięce
-chociarz - patrz: chociasz
+chociarz - chociasz
 chociasz - chociaż
 chodowany - hodowany
 chomologacja - homologacja
@@ -105,7 +105,7 @@ cienżarowy - ciężarowy
 cięką - cienką
 ciongnik - ciągnik
 cipelutki/a - cieplutki/a 
-cód - patrz: cut
+cód - cut
 códowna - cudowna
 curka - córka
 cut - cud
@@ -126,7 +126,7 @@ daleko sienrzne - dalekosiężne
 darójmy - darujmy
 delikfent - delikwent
 dekold  - dekolt
-dekoldzik  - patrz: dekolcik
+dekoldzik  - dekolcik
 dekolcik - idiotyczne zdrobnienie
 dembowy - dębowy
 dewiską - dewizką
@@ -161,31 +161,31 @@ dzióra - dziura
 dzwienku - dźwięku
 dżazg - drzazg
 dźwi - drzwi
-ecrue  - patrz: écru
-ecrui  - patrz: écru
-ecry  - patrz: écru
-ecure - patrz: écru
+ecrue  - écru
+ecrui  - écru
+ecry  - écru
+ecure - écru
 efektowane - efektowne
 egzemplaż  - egzemplarz
-egzęplarz  - patrz: egzemplaż
-egzęplaż  - patrz: egzęplarz
-ekri  - patrz: écru
-ekrii - patrz: écru
-ekru - patrz: écru 
-ekry - patrz: écru
+egzęplarz  - egzemplaż
+egzęplaż  - egzęplarz
+ekri  - écru
+ekrii - écru
+ekru - écru 
+ekry - écru
 eksklózywne - ekskluzywne
 elegandzka - elegancka
 energi - energii
-eqri - patrz: écru
-eqrie - patrz: écru
-eqru - patrz: écru
+eqri - écru
+eqrie - écru
+eqru - écru
 essei - esejów
 etłi - etui
 exstra - ekstra, extra
 extrymalnie - ekstremalnie
 faktórą - fakturą
-feair - patrz: fer
-fer - patrz: ferr
+feair - fer
+fer - ferr
 ferplej - fairplay
 ferr - fair
 figorka - figurka
@@ -218,7 +218,7 @@ gniecący - gniotący
 gobka - gąbka
 golembi - gołębi
 gokard - gokart
-gombka - patrz: gompka
+gombka - gompka
 gompka - gąbka
 gómce - gumce
 góru - guru
@@ -280,8 +280,8 @@ jaszczorki - jaszczurki
 jerzeli  - jeżeli
 jerzli - jeśli lub jeżeli ;)
 jeźorem - jeziorem
-jóż  - patrz: jurz
-jurz - patrz: jusz
+jóż  - jurz
+jurz - jusz
 jusz  - już
 kakretne - konkretne
 kaledaz - kalendarz
@@ -291,13 +291,13 @@ kałcje - kaucję
 kałczuk - kauczuk
 kamuflarzu - kamuflażu
 karzdy - każdy
-kato - patrz: kąto
-katrachent - patrz: kontrachent
+kato - kąto
+katrachent - kontrachent
 kąkretny - konkretny
 kąpa - kompa
 kąplet - komplet
 kątakt - kontakt
-kątą - patrz: kąto
+kątą - kąto
 kąto - konto
 kędzieżawy - kędzierzawy
 kiletem - klientem
@@ -315,11 +315,11 @@ koleszka - koleżka
 koloże - kolorze
 koładka - kołatka
 kołnież  - kołnierz
-komentaż - patrz: kometaz
-kometaz - patrz: komętarz
-komętarz - patrz: komętaż
+komentaż - kometaz
+kometaz - komętarz
+komętarz - komętaż
 komętaż - komentarz
-komóurka - patrz: komurka
+komóurka - komurka
 kompiel - kąpiel
 kompetecje - kompetencje
 komurka  - telefon komórkowy
@@ -357,15 +357,15 @@ kwarancyjna - gwarancyjna
 kżyżowych - krzyżowych
 labolatorium - laboratorium
 laeycrą - lycrą
-laicra - patrz: laikra
-laikra  - patrz: lajkra
-lajkra  - patrz: licra
+laicra - laikra
+laikra  - lajkra
+lajkra  - licra
 latrelek - ratlerek
 lążowania - lonżowania
 legęda - legenda
 leprzy  - lepszy
 lerzy - leży
-licra  - patrz: lykra
+licra  - lykra
 likfidacji - likwidacji
 litycacia - licytacja
 londowych - lądowych
@@ -390,7 +390,7 @@ maitasy - majtasy
 maitki - majtki
 makijarz - makijaż
 mankamęty - mankamenty
-marichuany - patrz: marychuany
+marichuany - marychuany
 marychuany - marihuany
 marynażyk - marynarzyk
 maturzysztow - maturzsytów
@@ -449,14 +449,14 @@ niezruwnowarzony - niezrównoważony
 nirzej - niżej
 nizkim - niskim
 nizkiego - niskiego
-noofka - patrz: nufka
+noofka - nufka
 nowiudka - nowiutka
 noworotka - noworodka
 nórka - nurka
 nówka - coś nowego
-nufka - patrz: nówka
+nufka - nówka
 nuszki - nóżki
-nuwka - patrz: nufka
+nuwka - nufka
 objektywy - obiektywy
 obnirzaja - obniżają
 obopulnie - obopólnie
@@ -494,7 +494,7 @@ opszerz - oprzesz
 opszyty - obszyty
 opwod - obwód
 orginalnoł - oryginalną
-orginał - patrz: orgynał
+orginał - orgynał
 orgynał - oryginał
 orjętacyjne - orientacyjne
 orzeły - orły
@@ -511,7 +511,7 @@ ożełek - orzełek
 pahnie - pachnie
 pamienc  - pamięć
 papuszka - papużka
-parfum - patrz: perfum
+parfum - perfum
 paseczką - paseczkom
 pasi - pasuje
 pasowne - pasujące
@@ -525,7 +525,7 @@ pempek - pępek
 pendzelek - pędzelek
 penkaj - pękaj
 pentelke - pętelkę
-perfum - patrz: perfuma
+perfum - perfuma
 perfuma  - perfumy
 persfazyjna - perswazyjna
 pienaszki - pieniążki
@@ -556,7 +556,7 @@ pod-pouri - pot-pourri
 podpurką - podpórką
 polewej - po lewej
 pomodz - pomóc
-poniewarz  - patrz: poniewasz
+poniewarz  - poniewasz
 poniewasz  - ponieważ
 ponirzej - poniżej
 ponorzszych skrutów - poniższych skrótów 
@@ -698,7 +698,7 @@ skataktowal - skontaktował
 sklepą - sklepom
 skłat - skład
 skompy - skąpy
-skozany  - patrz: skużany
+skozany  - skużany
 skótek - skutek
 skreny - screeny
 skrucie  - skrócie
@@ -719,11 +719,11 @@ spószczania - spuszczania
 sprawć - sprawdź
 spręrzyny - sprężyny
 sprzencie - sprzęcie
-sprzent - patrz: sprzęd
+sprzent - sprzęd
 sprzęd - sprzęt
 sprzodu - z przodu
 spudnica  - spódnica
-spudnica z sówakiem - patrz: spudnica, sówak
+spudnica z sówakiem - spudnica, sówak
 spudnisia - spódnisia
 spujrz - spójrz
 spułpracuje - współpracuje
@@ -738,7 +738,7 @@ struj - strój
 stujką - stójką
 stupkę - stópkę
 stwaza - stwarza
-stymże - patrz: ztymze
+stymże - ztymze
 sufmiarka - suwmiarka
 swienty - świetny
 sylikon  - silikon
@@ -760,7 +760,7 @@ szybciudko - szybciutko
 szybko łudź motorowo - szybką łódź motorową
 szyiki - szyjki
 szypkości - szybkości
-szwónkiel - patrz: funkiel
+szwónkiel - funkiel
 ścianom - ścianą
 śćęty - ścięty
 śiwtenia - świetnie
@@ -780,9 +780,9 @@ tawty - tafty
 tąbak - tombak
 tchurzo-fretka - tchórzofretka
 tempy - tępy
-tempy urzytkownik - patrz: tempy, urzytkownik
+tempy urzytkownik - tempy, urzytkownik
 terkocenia - terkotania
-terz  - patrz: tesz
+terz  - tesz
 tesz  - też
 tęperatura - temperatura
 tępo za wolne - tempo za wolne
@@ -809,8 +809,8 @@ uhwyty - uchwyty
 uleprzenia - ulepszenia
 umie - u mnie
 umię - umiem
-uprzarz - patrz: uprząsz
-uprząsz - patrz: upsząsz
+uprzarz - uprząsz
+uprząsz - upsząsz
 upsząsz - uprząż
 urzytkownik  - użytkownik
 urzytku  - użytku
@@ -891,7 +891,7 @@ za bespieczyc - zabezpieczyć
 zabydkowych - zabytkowych
 zaczask - zatrzask
 zaczoł - zaczął
-zadko  - patrz: żadko
+zadko  - żadko
 zadkosc  - rzadkość
 zagatka - zagadka
 zaginięte - zaginione
@@ -940,7 +940,7 @@ zwerza - zwęża
 zwięczająca - zwieńczająca
 zylandor - żyrandol
 źrudło - źródło
-żadko - patrz: żatko
+żadko - żatko
 żandariera - żardyniera
 żatko - rzadko
 żąkili - żonkili

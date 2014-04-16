@@ -11,8 +11,6 @@ import re
 DICTIONARY_PATH = 'dictionary.txt'
 
 
-
-
 def train(features):
     model = collections.defaultdict(lambda: 1)
     for f in features:
@@ -20,9 +18,11 @@ def train(features):
     return model
 
 
-
 def words(text): return re.findall('[\w]+', text.lower(), flags=re.UNICODE)
+
+
 NWORDS = train(words(file('korpus').read()))
+
 
 def known_words(words, dictionary):
     return words.intersection(dictionary)
@@ -68,25 +68,26 @@ def levenshtein(word_a, word_b):
     for i, c1 in enumerate(word_a):
         current_row = [i + 1]
         for j, c2 in enumerate(word_b):
-            insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
+            insertions = previous_row[
+                             j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
             deletions = current_row[j] + 1       # than s2
             substitutions = previous_row[j] + (c1 != c2) * cost(c1, c2)
             best = min(insertions, deletions, substitutions)
 
             if i > 0:
-                subs12 = p_previous_row[j] + cost(word_a[i-1] + word_a[i], word_b[j])
+                subs12 = p_previous_row[j] + cost(word_a[i - 1] + word_a[i], word_b[j])
                 best = min(best, subs12)
 
             if j > 0:
-                subs21 = previous_row[j-1] + cost(word_a[i], word_b[j-1] + word_b[j])
+                subs21 = previous_row[j - 1] + cost(word_a[i], word_b[j - 1] + word_b[j])
                 best = min(best, subs21)
 
             if i > 0 and j > 0:
-                subs22 = p_previous_row[j-1] + cost(word_a[i-1]+word_a[i], word_b[j-1]+word_b[j])
+                subs22 = p_previous_row[j - 1] + cost(word_a[i - 1] + word_a[i], word_b[j - 1] + word_b[j])
                 best = min(best, subs22)
 
-            if i > 0 and j > 0 and c1 == word_b[j-1] and c2 == word_a[i-1]:
-                transpositions = p_previous_row[j-1] + 0.5
+            if i > 0 and j > 0 and c1 == word_b[j - 1] and c2 == word_a[i - 1]:
+                transpositions = p_previous_row[j - 1] + 0.5
                 best = min(best, transpositions)
 
             current_row.append(best)
@@ -120,7 +121,6 @@ def load_dictionary():
         return chain.from_iterable(split)
 
 
-
 with open('bledy.txt') as f:
     lines = f.read().splitlines()
     split = map(lambda x: x.decode('utf-8').split(" - "), lines)
@@ -132,9 +132,9 @@ for pair in split:
 
 NERRS = train(errors)
 
-print NERRS
 
 def main():
+    #print NERRS
     dictionary = set(map(lambda word: word.decode('utf-8'), load_dictionary()))
 
     for word in fileinput.input():
@@ -144,11 +144,19 @@ def main():
         print u', '.join(proposals).encode("utf-8")
 
 
+def P(x):
+    return NERRS[x[1]] * NWORDS[x[0]]
+
+
 def best(tuples):
+    was = set()
+
     yield tuples[0][0]
+    was.add(tuples[0][0])
 
     for i in xrange(1, min(len(tuples), 5)):
-        if tuples[0][1] == tuples[i][1]:
+        if (P(tuples[0]) / 2) < P(tuples[i]) and tuples[i][0] not in was:
+            was.add(tuples[0][0])
             yield tuples[i][0]
         else:
             break
@@ -159,16 +167,17 @@ def propose3(mistake, dictionary):
 
     words1 = ((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet))
     known1 = set((word, dist) for (word, dist) in generate_levenshtein(mistake, alphabet) if word in dictionary)
+    known1_words = set(word for (word, dist) in known1)
 
-    if known1:
-        ordered = sorted(known1, key=lambda x: x[1])
-        return best(ordered)
+    #if known1:
+    #    ordered = sorted(known1, key=lambda x: -P(x))
+    #    return best(ordered)
 
     known2 = set((word2, dist1 + dist2) for (word1, dist1) in words1 for (word2, dist2) in
-                 generate_levenshtein(word1, alphabet) if word2 in dictionary)
+                 generate_levenshtein(word1, alphabet) if word2 in dictionary and word2 not in known1_words)
 
     if known2:
-        ordered = sorted(known2.union(known1), key=lambda x: x[1])
+        ordered = sorted(known2.union(known1), key=lambda x: -P(x))
         return best(ordered)
 
     return [mistake]
