@@ -78,16 +78,17 @@ def lcs_metric(string1, string2):
 
 
 def similarity_func(string1, string2):
-    lcs = lcs_metric(string1[:8], string2[:8])
+    lcs = lcs_metric(string1[:10], string2[:10])
+    dice_short = dice_coefficient(string1[:15], string2[:15])
     dice = dice_coefficient(string1, string2)
 
-    return (lcs + dice)/2 > 0.7
+    return (lcs + dice_short + dice)/3 > 0.7
 
 
 FREQUENT_SHORTCUTS = ['co.', 's.a.', ' sa ', ' co ']
 FREQUENT_WORDS = ['fax', 'tel', 'llc', 'zip', 'ooo', '000', 'email', 'spzoo', 'ltd', 'spolkaakcyjna', 'spolka', 'company']
-FREQUENT_WORDS += ['sanktpetersburg' 'saintpetersburg', 'stpetersburg', 'russia', 'poland', 'polska', 'moscow',
-                   'denmark', 'hongkong', 'qingdao', 'shenzen', 'shanghai']
+FREQUENT_WORDS += ['sanktpetersburg' 'saintpetersburg', 'stpetersburg', 'spetersburg', 'russia', 'poland', 'polska', 'moscow',
+                   'denmark', 'hongkong', 'qingdao', 'shenzen', 'shanghai', 'shaoxing', 'foshan']
 
 
 def filter_func(line):

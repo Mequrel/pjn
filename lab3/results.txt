@@ -1,1 +1,6 @@
-wszystko w jednym -> 0.00311697434035
+mequrel@mequrel-VirtualBox:~/nlp/lab3$ time ./test.sh 
+0.783123296021
+
+real	10m36.165s
+user	10m36.172s
+sys	0m0.048s
