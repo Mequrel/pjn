@@ -4,12 +4,9 @@ import lab3
 __author__ = 'mequrel'
 
 
-# class Lab3Test(TestCase):
-#     def test_should_return_string_length_for_the_same_strings(self):
-#         result = lab3.lcs_length("abcde", "abcde")
-#         expected = 5
-#
-#         self.assertEquals(expected, result)
+#class DiceTest(TestCase):
+#    def test_
+
 
 class PreprocessingTest(TestCase):
     def test_should_preprocess_data(self):
