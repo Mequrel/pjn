@@ -9,13 +9,26 @@ import fileinput
 DELIMITER = "#####"
 
 
-def main():
+def clusterize(strings):
+    return [strings]
+
+
+def print_cluster(cluster):
     print DELIMITER
 
-    for word in fileinput.input():
-        word = word.strip()
+    for string in cluster:
+        print string
 
-        print word
+    print ""
+
+
+def main():
+    lines = [line.strip() for line in fileinput.input()]
+
+    clusters = clusterize(lines)
+
+    for cluster in clusters:
+        print_cluster(cluster)
 
 
 if __name__ == "__main__":
