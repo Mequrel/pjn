@@ -24,7 +24,7 @@ def clusterize(strings, metric_func):
         cluster = set(similar + [head])
         clusters.append(cluster)
         strings = not_similar
-        #print cluster
+        print cluster
 
     return clusters
 
@@ -55,14 +55,27 @@ def lcs_length(s1, s2):
 
 def similarity_func(string1, string2):
     lcs_metric = lcs_length(string1, string2) / float(max(len(string1), len(string2)))
-    print "similarity_func: \n{}\n{}\nresult = {}\n\n".format(string1, string2, lcs_metric)
+    #print "similarity_func: \n{}\n{}\nresult = {}\n\n".format(string1, string2, lcs_metric)
     return lcs_metric > 0.3
 
 
+FREQUENT_SHORTCUTS = ['co.', 's.a.', ' sa ', ' co ']
+FREQUENT_WORDS = ['fax', 'tel', 'llc', 'zip', 'ooo', '000', 'email', 'spzoo', 'ltd', 'spolkaakcyjna', 'spolka', 'company']
+FREQUENT_WORDS += ['sanktpetersburg' 'saintpetersburg', 'stpetersburg', 'russia', 'poland', 'polska', 'moscow',
+                   'denmark', 'hongkong', 'qingdao', 'shenzen', 'shanghai']
+
+
 def filter_func(line):
-    line = re.sub("\W", "", line)
-    line = re.sub("\d", "", line)
     line = line.lower()
+
+    for shortcut in FREQUENT_SHORTCUTS:
+        line = line.replace(shortcut, "")
+
+    line = re.sub("\W", "", line)
+    # line = re.sub("\d", "", line)
+    for word in FREQUENT_WORDS:
+        line = line.replace(word, "")
+
 
     return line
 
