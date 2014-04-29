@@ -4,7 +4,9 @@
 __author__ = 'Bartłomiej Szczepanik'
 
 import fileinput
-
+import re
+from collections import defaultdict
+from itertools import chain
 
 DELIMITER = "#####"
 
@@ -54,20 +56,32 @@ def lcs_length(s1, s2):
 def similarity_func(string1, string2):
     lcs_metric = lcs_length(string1, string2) / float(max(len(string1), len(string2)))
     print "similarity_func: \n{}\n{}\nresult = {}\n\n".format(string1, string2, lcs_metric)
-    return lcs_metric > 0.2
+    return lcs_metric > 0.3
 
 
 def filter_func(line):
-    return line.lower()
+    line = re.sub("\W", "", line)
+    line = re.sub("\d", "", line)
+    line = line.lower()
+
+    return line
 
 
 def preprocess(lines, filter_func):
-    return map(filter_func, lines), {filter_func(line): line for line in lines}
+    mapping = defaultdict(list)
+
+    for line in lines:
+        mapping[filter_func(line)].append(line)
+
+    return map(filter_func, lines), mapping
 
 
 def get_back_to_original_lines(clusters, mapping):
+    def flatten(l):
+        return list(chain.from_iterable(l))
+
     def get_back(cluster):
-        return {mapping[string] for string in cluster}
+        return set(flatten([mapping[string] for string in cluster]))
 
     return [get_back(cluster) for cluster in clusters]
 

@@ -35,6 +35,19 @@ class PreprocessingTest(TestCase):
 
         self.assertItemsEqual(expected_clusters, result_clusters)
 
+    def test_should_not_lose_entries_which_are_identical_after_filtering(self):
+        strings = ["a@", "a#", "b#", "b@"]
+        filter_func = lambda s: s[:1]
+
+        _, mapping = lab3.preprocess(strings, filter_func)
+
+        clusters = [{"a"}, {"b"}]
+        expected_clusters = [{"a@", "a#"}, {"b#", "b@"}]
+
+        result_clusters = lab3.get_back_to_original_lines(clusters, mapping)
+
+        self.assertItemsEqual(expected_clusters, result_clusters)
+
 
 class LCSLengthTest(TestCase):
     def test_should_be_zero_if_nothing_in_common(self):
