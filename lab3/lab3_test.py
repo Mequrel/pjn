@@ -11,6 +11,31 @@ __author__ = 'mequrel'
 #
 #         self.assertEquals(expected, result)
 
+class PreprocessingTest(TestCase):
+    def test_should_preprocess_data(self):
+        strings = ["a@", "b@"]
+        filter_func = lambda s: s.strip("@")
+
+        expected_strings = ["a", "b"]
+
+        filtered_strings, _ = lab3.preprocess(strings, filter_func)
+
+        self.assertItemsEqual(expected_strings, filtered_strings)
+
+    def test_should_reassemble_original_data(self):
+        strings = ["a@", "b#", "c#", "d@"]
+        filter_func = lambda s: s[:1]
+
+        _, mapping = lab3.preprocess(strings, filter_func)
+
+        clusters = [{"a", "b"}, {"c", "d"}]
+        expected_clusters = [{"a@", "b#"}, {"c#", "d@"}]
+
+        result_clusters = lab3.get_back_to_original_lines(clusters, mapping)
+
+        self.assertItemsEqual(expected_clusters, result_clusters)
+
+
 class LCSLengthTest(TestCase):
     def test_should_be_zero_if_nothing_in_common(self):
         result = lab3.lcs_length("abcde", "uwxyz")

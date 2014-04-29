@@ -57,11 +57,28 @@ def similarity_func(string1, string2):
     return lcs_metric > 0.2
 
 
+def filter_func(line):
+    return line.lower()
+
+
+def preprocess(lines, filter_func):
+    return map(filter_func, lines), {filter_func(line): line for line in lines}
+
+
+def get_back_to_original_lines(clusters, mapping):
+    def get_back(cluster):
+        return {mapping[string] for string in cluster}
+
+    return [get_back(cluster) for cluster in clusters]
+
+
 def main():
     lines = [line.strip() for line in fileinput.input()]
+    filtered_lines, mapping = preprocess(lines, filter_func)
 
-    clusters = clusterize(lines, similarity_func)
+    clusters = clusterize(filtered_lines, similarity_func)
 
+    clusters = get_back_to_original_lines(clusters, mapping)
     for cluster in clusters:
         print_cluster(cluster)
 
