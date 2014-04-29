@@ -42,8 +42,24 @@ def print_cluster(cluster):
     print ""
 
 
+def lcs_length(s1, s2):
+    m = [[0] * (1 + len(s2)) for i in xrange(1 + len(s1))]
+    longest = 0
+    for x in xrange(1, 1 + len(s1)):
+        for y in xrange(1, 1 + len(s2)):
+            if s1[x - 1] == s2[y - 1]:
+                m[x][y] = m[x - 1][y - 1] + 1
+                if m[x][y] > longest:
+                    longest = m[x][y]
+            else:
+                m[x][y] = 0
+
+    return longest
+
+
 def similarity_func(string1, string2):
-    return True
+    lcs_metric = 1 - lcs_length(string1, string2) / float(max(len(string1), len(string2)))
+    return lcs_metric < 0.4
 
 
 def main():

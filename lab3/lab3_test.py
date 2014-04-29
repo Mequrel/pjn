@@ -11,10 +11,35 @@ __author__ = 'mequrel'
 #
 #         self.assertEquals(expected, result)
 
+class LCSLengthTest(TestCase):
+    def test_should_be_zero_if_nothing_in_common(self):
+        result = lab3.lcs_length("abcde", "uwxyz")
+        expected = 0
+
+        self.assertEquals(expected, result)
+
+    def test_should_be_string_length_for_the_same_strings(self):
+        result = lab3.lcs_length("abcde", "abcde")
+        expected = 5
+
+        self.assertEquals(expected, result)
+
+    def test_should_have_real_lcs_length(self):
+        result = lab3.lcs_length("Bartek", "warta")
+        expected = 3
+
+        self.assertEquals(expected, result)
+
+    def test_should_pick_the_longest_one(self):
+        result = lab3.lcs_length("abc#abcd#abcde#abcdef", "abcdef@abcde@abcd@abc")
+        expected = 6
+
+        self.assertEquals(expected, result)
+
 
 class SimilarityTest(TestCase):
     def test_should_be_similar_if_lcs_metric_is_high(self):
-        self.assertTrue(lab3.similarity_func("abcdDEFGHIJKLxx", "xyzeDEFGHIJKLuha"))
+        self.assertTrue(lab3.similarity_func("abcdDEFGHIJKL", "xyzeDEFGHIJKL"))
 
     def test_should_not_be_similar_if_lsc_metric_is_low(self):
         self.assertFalse(lab3.similarity_func("abcdefghijkl", "klmnopqrstuvwxyz"))
