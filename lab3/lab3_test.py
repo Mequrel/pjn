@@ -1,0 +1,51 @@
+from unittest import TestCase
+import lab3
+
+__author__ = 'mequrel'
+
+
+# class Lab3Test(TestCase):
+#     def test_should_return_string_length_for_the_same_strings(self):
+#         result = lab3.lcs_length("abcde", "abcde")
+#         expected = 5
+#
+#         self.assertEquals(expected, result)
+
+
+class ClusterizeTest(TestCase):
+    def test_should_gather_all_strings_with_metric_below_epsilon_in_one_cluster(self):
+        # given
+        strings = ["a", "b", "c", "d"]
+
+        expected_clusters = [{"a", "b"}, {"c", "d"}]
+        similarity_func = self.__similarity_func_from_clusters(expected_clusters)
+
+        #when
+        results = lab3.clusterize(strings, similarity_func)
+
+        #then
+        self.assertItemsEqual(expected_clusters, results)
+
+    def test_should_return_zero_clusters_for_empty_strings(self):
+        # given
+        strings = []
+
+        expected_clusters = []
+        similarity_func = self.__similarity_func_from_clusters(expected_clusters)
+
+        #when
+        results = lab3.clusterize(strings, similarity_func)
+
+        #then
+        self.assertItemsEqual(expected_clusters, results)
+
+    def __similarity_func_from_clusters(self, clusters):
+        def similarity(string1, string2):
+            return any([cluster for cluster in clusters if
+                        {string1, string2}.intersection(cluster) == {string1, string2}])
+
+        return similarity
+
+    # def __metric_func_from_distances(self, distances):
+    #     return lambda string1, string2: distances[(string1, string2)] \
+    #         if (string1, string2) in distances else distances[(string2, string1)]
