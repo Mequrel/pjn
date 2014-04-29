@@ -9,13 +9,6 @@ import fileinput
 DELIMITER = "#####"
 
 
-# def lcs_length(string1, string2):
-#     return len(string1)
-
-
-EPSILON = 0.2
-
-
 def partition(l, p):
     return reduce(lambda x, y: x[0].append(y) or x if p(y) else x[1].append(y) or x, l, ([], []))
 
@@ -29,6 +22,7 @@ def clusterize(strings, metric_func):
         cluster = set(similar + [head])
         clusters.append(cluster)
         strings = not_similar
+        #print cluster
 
     return clusters
 
@@ -58,8 +52,9 @@ def lcs_length(s1, s2):
 
 
 def similarity_func(string1, string2):
-    lcs_metric = 1 - lcs_length(string1, string2) / float(max(len(string1), len(string2)))
-    return lcs_metric < 0.4
+    lcs_metric = lcs_length(string1, string2) / float(max(len(string1), len(string2)))
+    print "similarity_func: \n{}\n{}\nresult = {}\n\n".format(string1, string2, lcs_metric)
+    return lcs_metric > 0.2
 
 
 def main():
