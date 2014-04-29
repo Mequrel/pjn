@@ -12,6 +12,14 @@ __author__ = 'mequrel'
 #         self.assertEquals(expected, result)
 
 
+class SimilarityTest(TestCase):
+    def test_should_be_similar_if_lcs_metric_is_high(self):
+        self.assertTrue(lab3.similarity_func("abcdDEFGHIJKLxx", "xyzeDEFGHIJKLuha"))
+
+    def test_should_not_be_similar_if_lsc_metric_is_low(self):
+        self.assertFalse(lab3.similarity_func("abcdefghijkl", "klmnopqrstuvwxyz"))
+
+
 class ClusterizeTest(TestCase):
     def test_should_gather_all_strings_with_metric_below_epsilon_in_one_cluster(self):
         # given
