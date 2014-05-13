@@ -5,6 +5,7 @@ from plp import PLP
 import re
 
 import itertools
+import pickle
 
 
 def allsame(seq):
@@ -17,21 +18,6 @@ def getcommonstart(string1, string2):
 
 
 
-def forms_to_changes(forms, p, i):
-    for form in forms:
-        base = p.bform(i)
-        common_prefix = getcommonstart(base, form)
-        remove = form[len(common_prefix):]
-        add = base[len(common_prefix):]
-
-        yield (form[::-1], (remove, add))
-
-
-def safe_forms(p, i):
-    try:
-        return forms_to_changes(p.forms(i), p, i)
-    except UnicodeDecodeError:
-        return []
 
 
 def find_best_match(a_tergo, word):
@@ -53,17 +39,8 @@ def main():
 
     p = PLP()
 
-    i = 16777216
-    #last = 18663968
-    last = 16780000
-
-    a_tergo = set()
-    while i <= last:
-        forms = safe_forms(p, i)
-        a_tergo.update(forms)
-        i += 1
-
-    a_tergo = list(a_tergo)
+    with open('atergo.pickled') as atergo_file:
+        a_tergo = pickle.load(atergo_file)
 
     for word in words:
         rec_list = p.rec(word)
