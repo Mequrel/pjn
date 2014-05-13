@@ -56,20 +56,23 @@ def lcs_length(s1, s2):
 def dice_coefficient(a, b):
     """dice coefficient 2nt/na + nb."""
     if not len(a) or not len(b): return 0.0
-    if len(a) == 1:  a=a+u'.'
-    if len(b) == 1:  b=b+u'.'
+    if len(a) == 1:
+        a += u'.'
 
-    a_bigram_list=[]
-    for i in range(len(a)-1):
-      a_bigram_list.append(a[i:i+2])
-    b_bigram_list=[]
-    for i in range(len(b)-1):
-      b_bigram_list.append(b[i:i+2])
+    if len(b) == 1:
+        b += u'.'
+
+    a_bigram_list = []
+    for i in range(len(a) - 1):
+        a_bigram_list.append(a[i:i + 2])
+    b_bigram_list = []
+    for i in range(len(b) - 1):
+        b_bigram_list.append(b[i:i + 2])
 
     a_bigrams = set(a_bigram_list)
     b_bigrams = set(b_bigram_list)
     overlap = len(a_bigrams & b_bigrams)
-    dice_coeff = overlap * 2.0/(len(a_bigrams) + len(b_bigrams))
+    dice_coeff = overlap * 2.0 / (len(a_bigrams) + len(b_bigrams))
     return dice_coeff
 
 
@@ -82,12 +85,14 @@ def similarity_func(string1, string2):
     dice_short = dice_coefficient(string1[:15], string2[:15])
     dice = dice_coefficient(string1, string2)
 
-    return (lcs + dice_short + dice)/3 > 0.7
+    return (lcs + dice_short + dice) / 3 > 0.7
 
 
 FREQUENT_SHORTCUTS = ['co.', 's.a.', ' sa ', ' co ']
-FREQUENT_WORDS = ['fax', 'tel', 'llc', 'zip', 'ooo', '000', 'email', 'spzoo', 'ltd', 'spolkaakcyjna', 'spolka', 'company']
-FREQUENT_WORDS += ['sanktpetersburg' 'saintpetersburg', 'stpetersburg', 'spetersburg', 'russia', 'poland', 'polska', 'moscow',
+FREQUENT_WORDS = ['fax', 'tel', 'llc', 'zip', 'ooo', '000', 'email', 'spzoo', 'ltd', 'spolkaakcyjna', 'spolka',
+                  'company']
+FREQUENT_WORDS += ['sanktpetersburg' 'saintpetersburg', 'stpetersburg', 'spetersburg', 'russia', 'poland', 'polska',
+                   'moscow',
                    'denmark', 'hongkong', 'qingdao', 'shenzen', 'shanghai', 'shaoxing', 'foshan']
 
 
@@ -101,7 +106,6 @@ def filter_func(line):
     line = re.sub("\d", "", line)
     for word in FREQUENT_WORDS:
         line = line.replace(word, "")
-
 
     return line
 

@@ -16,7 +16,7 @@ def main():
     ok_count = 0
     for word in norm:
         if not word in result:
-            print "{0}: not found stemmed word for in the result".format(word)
+            print "{0}: missing in the result".format(word)
         else:
             stemmed_word = norm[word]
             answer = result[word]
@@ -34,7 +34,9 @@ def read_words_from_input(input_file):
     """
     Reads file input (word and stemmed word divided by comma) and returns words
     """
-    words = map(lambda line: line.strip().split(','), input_file)
+
+    lines = filter(lambda line: line.find(',') > -1, input_file)
+    words = map(lambda line: line.strip().split(','), lines)
     return {word: stemmed_word for (word, stemmed_word) in words}
 
 
