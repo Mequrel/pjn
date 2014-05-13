@@ -6,10 +6,6 @@ from plp import PLP
 import itertools
 import pickle
 
-def allsame(seq):
-    return min([elem==seq[0] for elem in seq]+[True])
-
-
 def getcommonstart(string1, string2):
     return ''.join(map(lambda x: x[0], itertools.takewhile(lambda (letter1, letter2): letter1 == letter2,
                                           itertools.izip(string1, string2))))
@@ -36,8 +32,8 @@ def main():
     p = PLP()
 
     i = 16777216
-    #last = 18663968
-    last = 16790000
+    last = 18663968
+    #last = 17000000
 
     a_tergo = []
     while i <= last:
