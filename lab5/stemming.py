@@ -11,7 +11,7 @@ def _most_common(lst):
 
 
 def _prefixes(word):
-    for i in xrange(len(word)):
+    for i in xrange(3, len(word)):
         yield word[:i]
 
 
@@ -26,6 +26,8 @@ def _find_best_match(a_tergo, word):
         if matching_items:
             values = map(lambda x: _to_value(x[1]), matching_items)
             return _most_common(values)
+
+    return u'', u''
 
 
 def stem(a_tergo, word):
