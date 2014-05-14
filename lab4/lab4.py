@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
 import fileinput
-from plp import PLP
 import re
 
 import itertools
 import pickle
-import marisa_trie
 
 
 from collections import Counter
@@ -20,6 +18,7 @@ def most_common(lst):
 def getcommonstart(string1, string2):
     return ''.join(map(lambda x: x[0], itertools.takewhile(lambda (letter1, letter2): letter1 == letter2,
                                           itertools.izip(string1, string2))))
+
 
 def most_common(lst):
     return max(set(lst), key=lst.count)
@@ -38,8 +37,6 @@ def find_best_match(a_tergo, word):
     for prefix in reversed(list(prefixes(word))):
         matching_items = a_tergo.items(prefix)
 
-        #print matching_items
-
         if matching_items:
             values = map(lambda x: to_value(x[1]), matching_items)
             return most_common(values)
@@ -48,17 +45,10 @@ def find_best_match(a_tergo, word):
 def main():
     words = [line.decode('utf-8').strip() for line in fileinput.input()]
 
-    p = PLP()
-
-    with open('atergo.pickled8') as atergo_file:
+    with open('atergo1700.pickled') as atergo_file:
         a_tergo = pickle.load(atergo_file)
 
     for word in words:
-        rec_list = p.rec(word)
-        #if rec_list:
-        #    stemmed_word = p.bform(rec_list[0])
-        #else:
-
         match = find_best_match(a_tergo, word[::-1])
         stemmed_word = re.sub(match[0] + '$', match[1], word)
 
