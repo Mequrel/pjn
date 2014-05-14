@@ -1,3 +1,5 @@
 .idea/
 *.txt
 *.pickled
+*.log
+*.png
