@@ -3,11 +3,12 @@
 import fileinput
 import pickle
 from words import extract_words
-from stemming import stem
+from stemming import stem, stem_plp, stem_combined
 from collections import Counter
+from plp import PLP
 
 
-RESULT_FILE_PREFIX = 'result'
+RESULT_FILE_PREFIX = 'plp'
 
 
 def median(frequencies):
@@ -22,11 +23,15 @@ def median(frequencies):
 
 
 def main():
-    #with open('atergo_all.pickled') as atergo_file:
-    #    a_tergo = pickle.load(atergo_file)
+    with open('atergo_all.pickled') as atergo_file:
+       a_tergo = pickle.load(atergo_file)
+
+    p = PLP()
 
     words = extract_words(fileinput.input())
     #words = [stem(a_tergo, word) for word in words]
+    words = [stem_plp(p, word) for word in words]
+    #words = [stem_combined(p, a_tergo, word) for word in words]
 
     frequencies = Counter(words).most_common()
 

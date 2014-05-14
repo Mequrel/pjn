@@ -33,3 +33,20 @@ def _find_best_match(a_tergo, word):
 def stem(a_tergo, word):
     match = _find_best_match(a_tergo, word[::-1])
     return re.sub(match[0] + '$', match[1], word)
+
+
+def stem_plp(p, word):
+    matches = p.rec(word)
+    if not matches:
+        return word
+
+    return p.bform(matches[0])
+
+
+def stem_combined(p, a_tergo, word):
+    global i
+    matches = p.rec(word)
+    if not matches:
+        return stem(a_tergo, word)
+
+    return p.bform(matches[0])
