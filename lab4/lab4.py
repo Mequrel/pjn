@@ -6,6 +6,8 @@ import re
 
 import itertools
 import pickle
+import marisa_trie
+
 
 from collections import Counter
 
@@ -23,21 +25,24 @@ def most_common(lst):
     return max(set(lst), key=lst.count)
 
 
+def prefixes(word):
+    for i in xrange(len(word)):
+        yield word[:i]
+
+
+def to_value(bytes):
+    return pickle.loads(bytes)
+
+
 def find_best_match(a_tergo, word):
-    bests = [(u'', u'')]
-    best_len = 0
+    for prefix in reversed(list(prefixes(word))):
+        matching_items = a_tergo.items(prefix)
 
-    for dict_element in a_tergo:
-        common_prefix = getcommonstart(dict_element[0], word)
+        #print matching_items
 
-        if len(common_prefix) > best_len:
-            best_len = len(common_prefix)
-            bests = [dict_element[1]]
-        elif len(common_prefix) == best_len:
-            bests.append(dict_element[1])
-
-    print bests
-    return most_common(bests)
+        if matching_items:
+            values = map(lambda x: to_value(x[1]), matching_items)
+            return most_common(values)
 
 
 def main():
@@ -45,7 +50,7 @@ def main():
 
     p = PLP()
 
-    with open('atergo.pickled.xxx') as atergo_file:
+    with open('atergo.pickled8') as atergo_file:
         a_tergo = pickle.load(atergo_file)
 
     for word in words:

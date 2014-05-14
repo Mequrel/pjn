@@ -5,6 +5,7 @@ __author__ = 'mequrel'
 from plp import PLP
 import itertools
 import pickle
+import marisa_trie
 
 def getcommonstart(string1, string2):
     return ''.join(map(lambda x: x[0], itertools.takewhile(lambda (letter1, letter2): letter1 == letter2,
@@ -28,12 +29,16 @@ def safe_forms(p, i):
         return []
 
 
+def to_bytes(value):
+    return pickle.dumps(value)
+
+
 def main():
     p = PLP()
 
     i = 16777216
-    last = 18663968
-    #last = 17000000
+    #last = 18663968
+    last = 16800000
 
     a_tergo = []
     while i <= last:
@@ -41,7 +46,12 @@ def main():
         a_tergo.extend(forms)
         i += 1
 
-    with open('atergo.pickled', 'w') as atergo_file:
+    a_tergo = map(lambda (k, v): (k, to_bytes(v)), a_tergo)
+
+    a_tergo = marisa_trie.BytesTrie(a_tergo)
+
+
+    with open('atergo.pickled8', 'w') as atergo_file:
         pickle.dump(a_tergo, atergo_file)
 
 if __name__ == '__main__':
